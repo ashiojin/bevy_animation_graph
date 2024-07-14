@@ -28,7 +28,7 @@ impl MaskNode {
     }
 }
 
-// TODO:
+// TODO: Move logics to proper source
 fn mask_pose(pose: &Pose, mask: &BoneMask) -> Pose {
     let mut result = Pose::default();
 

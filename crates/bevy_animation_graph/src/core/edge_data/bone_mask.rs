@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Reflect, Clone, Debug)]
 #[reflect(Default)]
-pub enum BoneMask {
+pub enum BoneMask { // TODO: I think weight is unnecessary...
     /// If a bone is in the bones map, weight is given. Otherwise, weight is zero
     Positive { bones: HashMap<BoneId, f32> },
     /// If a bone is not in bones map, weight is 1. Otherwise, weight is as given

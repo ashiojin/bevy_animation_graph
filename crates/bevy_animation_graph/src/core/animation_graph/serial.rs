@@ -99,6 +99,7 @@ pub enum AnimationNodeTypeSerial {
     Graph(String),
 
     Mask,
+    InvertedMask,
 }
 
 impl From<&AnimationGraph> for AnimationGraphSerial {
@@ -195,6 +196,7 @@ impl From<&AnimationNodeType> for AnimationNodeTypeSerial {
             },
 
             AnimationNodeType::Mask(_) => AnimationNodeTypeSerial::Mask,
+            AnimationNodeType::InvertedMask(_) => AnimationNodeTypeSerial::InvertedMask,
         }
     }
 }

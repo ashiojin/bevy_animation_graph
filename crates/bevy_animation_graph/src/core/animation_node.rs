@@ -8,6 +8,7 @@ use crate::{
         AbsF32, AddF32, BlendNode, ChainNode, ClampF32, ClipNode, CompareF32, ConstBool, DivF32,
         DummyNode, FSMNode, FireEventNode, FlipLRNode, GraphNode, LoopNode, MaskNode, MulF32,
         PaddingNode, RotationArcNode, RotationNode, SpeedNode, SubF32, TwoBoneIKNode,
+        InvertedMask,
     },
     prelude::{PassContext, SpecContext},
 };
@@ -208,6 +209,8 @@ pub enum AnimationNodeType {
     // --- My Nodes
     // ------------------------------------------------
     Mask(MaskNode),
+
+    InvertedMask(InvertedMask),
     // ------------------------------------------------
 
     // ------------------------------------------------
@@ -259,6 +262,7 @@ impl AnimationNodeType {
             AnimationNodeType::Dummy(n) => f(n),
             AnimationNodeType::Custom(n) => f(n.node.lock().unwrap().deref()),
             AnimationNodeType::Mask(n) => f(n),
+            AnimationNodeType::InvertedMask(n) => f(n),
         }
     }
 
@@ -298,6 +302,7 @@ impl AnimationNodeType {
                 f(nod.deref_mut())
             }
             AnimationNodeType::Mask(n) => f(n),
+            AnimationNodeType::InvertedMask(n) => f(n),
         }
     }
 
@@ -331,6 +336,7 @@ impl AnimationNodeType {
             AnimationNodeType::Dummy(n) => n,
             AnimationNodeType::Custom(_) => todo!(),
             AnimationNodeType::Mask(n) => n,
+            AnimationNodeType::InvertedMask(n) => n,
         }
     }
 }

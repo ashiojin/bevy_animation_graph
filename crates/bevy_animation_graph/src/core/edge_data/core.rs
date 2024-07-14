@@ -175,6 +175,12 @@ impl From<Pose> for DataValue {
     }
 }
 
+impl From<BoneMask> for DataValue {
+    fn from(value: BoneMask) -> Self {
+        Self::BoneMask(value)
+    }
+}
+
 impl From<EventQueue> for DataValue {
     fn from(value: EventQueue) -> Self {
         Self::EventQueue(value)
