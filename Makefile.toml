@@ -1,0 +1,4 @@
+[tasks.hello]
+workspace = false
+command = "echo"
+args = ["hello"]

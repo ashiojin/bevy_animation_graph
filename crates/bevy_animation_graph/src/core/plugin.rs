@@ -13,7 +13,7 @@ use super::{
 };
 use crate::nodes::{
     AbsF32, AddF32, BlendNode, ChainNode, ClampF32, ClipNode, CompareF32, DivF32, DummyNode,
-    FireEventNode, FlipLRNode, GraphNode, LoopNode, MulF32, PaddingNode, RotationArcNode,
+    FireEventNode, FlipLRNode, GraphNode, LoopNode, MaskNode, MulF32, PaddingNode, RotationArcNode,
     RotationNode, SpeedNode, SubF32, TwoBoneIKNode,
 };
 use crate::prelude::{
@@ -80,8 +80,8 @@ impl AnimationGraphPlugin {
             .register_type::<PatternMapperSerial>()
             .register_type::<()>()
             .register_type_data::<(), ReflectDefault>()
-        // --- Node registrations
-        // ------------------------------------------
+            // --- Node registrations
+            // ------------------------------------------
             .register_type::<ClipNode>()
             .register_type::<DummyNode>()
             .register_type::<ChainNode>()
@@ -106,7 +106,7 @@ impl AnimationGraphPlugin {
             // .register_type::<IntoBoneSpaceNode>()
             // .register_type::<IntoGlobalSpaceNode>()
             // .register_type::<IntoCharacterSpaceNode>()
-        // ------------------------------------------
-        ;
+            // ------------------------------------------
+            .register_type::<MaskNode>();
     }
 }

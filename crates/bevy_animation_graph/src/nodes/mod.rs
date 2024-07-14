@@ -12,6 +12,8 @@ pub mod fsm_node;
 pub mod padding;
 pub mod speed_node;
 pub mod twoboneik_node;
+
+pub mod mask_node;
 //
 pub use arithmetic::*;
 pub use blend_node::*;
@@ -27,3 +29,5 @@ pub use fsm_node::*;
 pub use padding::*;
 pub use speed_node::*;
 pub use twoboneik_node::*;
+
+pub use mask_node::*;

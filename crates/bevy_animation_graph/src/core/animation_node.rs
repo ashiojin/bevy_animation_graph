@@ -6,8 +6,8 @@ use super::{
 use crate::{
     nodes::{
         AbsF32, AddF32, BlendNode, ChainNode, ClampF32, ClipNode, CompareF32, ConstBool, DivF32,
-        DummyNode, FSMNode, FireEventNode, FlipLRNode, GraphNode, LoopNode, MulF32, PaddingNode,
-        RotationArcNode, RotationNode, SpeedNode, SubF32, TwoBoneIKNode,
+        DummyNode, FSMNode, FireEventNode, FlipLRNode, GraphNode, LoopNode, MaskNode, MulF32,
+        PaddingNode, RotationArcNode, RotationNode, SpeedNode, SubF32, TwoBoneIKNode,
     },
     prelude::{PassContext, SpecContext},
 };
@@ -204,6 +204,12 @@ pub enum AnimationNodeType {
     // --- Vec3 arithmetic nodes
     // ------------------------------------------------
     RotationArc(RotationArcNode),
+
+    // --- My Nodes
+    // ------------------------------------------------
+    Mask(MaskNode),
+    // ------------------------------------------------
+
     // ------------------------------------------------
     Fsm(#[reflect(ignore)] FSMNode),
     // HACK: needs to be ignored for now due to:
@@ -252,6 +258,7 @@ impl AnimationNodeType {
             AnimationNodeType::FireEvent(n) => f(n),
             AnimationNodeType::Dummy(n) => f(n),
             AnimationNodeType::Custom(n) => f(n.node.lock().unwrap().deref()),
+            AnimationNodeType::Mask(n) => f(n),
         }
     }
 
@@ -290,6 +297,7 @@ impl AnimationNodeType {
                 let mut nod = n.node.lock().unwrap();
                 f(nod.deref_mut())
             }
+            AnimationNodeType::Mask(n) => f(n),
         }
     }
 
@@ -322,6 +330,7 @@ impl AnimationNodeType {
             AnimationNodeType::Graph(n) => n,
             AnimationNodeType::Dummy(n) => n,
             AnimationNodeType::Custom(_) => todo!(),
+            AnimationNodeType::Mask(n) => n,
         }
     }
 }

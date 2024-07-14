@@ -97,6 +97,8 @@ pub enum AnimationNodeTypeSerial {
     Dummy,
     Fsm(String),
     Graph(String),
+
+    Mask,
 }
 
 impl From<&AnimationGraph> for AnimationGraphSerial {
@@ -191,6 +193,8 @@ impl From<&AnimationNodeType> for AnimationNodeTypeSerial {
             AnimationNodeType::Padding(n) => AnimationNodeTypeSerial::Padding {
                 interpolation_period: n.interpolation_period,
             },
+
+            AnimationNodeType::Mask(_) => AnimationNodeTypeSerial::Mask,
         }
     }
 }
