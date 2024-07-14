@@ -14,6 +14,14 @@ ron = { workspace = true }
 derivative = "2.2.0"
 bevy_animation_graph = { version = "0.4.0", path = "../bevy_animation_graph" }
 clap = { version = "4.4.18", features = ["derive"] }
-bevy-inspector-egui = "0.23"
-egui_dock = "0.11"
-egui-notify = "0.13"
+bevy-inspector-egui = "0.24"
+egui_dock = "0.12"
+egui-notify = "0.14"
+
+
+######## WORKAROUND @2023/11/15 A: WSL->Windows Cross-Compilation Failed
+## see: https://github.com/bevyengine/bevy/issues/10425
+[dependencies.blake3]
+version = "1.5"
+features = ["pure"]
+######## WORKAROUND @2023/11/15 A

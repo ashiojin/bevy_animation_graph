@@ -1,0 +1,68 @@
+[tasks.default]
+command = "echo"
+args = ["read Makefile.toml"]
+
+[tasks.build-win-msvc]
+command = "cargo"
+args = ["build", "--target", "x86_64-pc-windows-msvc"]
+dependencies = ["prepare-to-build"]
+
+[tasks.run-win-msvc]
+run_task = { name = ["prepare-to-run-msvc", "run-exe", "post-run-win"] }
+
+[tasks.build-release-win-msvc]
+command = "cargo"
+args = ["build", "--release", "--target", "x86_64-pc-windows-msvc"]
+dependencies = ["prepare-to-build"]
+
+[tasks.clear-win-out]
+command = "rm"
+args = ["-rf", "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/out-win/"]
+
+[tasks.prepare-win-out]
+command = "mkdir"
+args = ["-p", "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/out-win/"]
+
+[tasks.copy-exe-to-win-out-msvc]
+command = "cp"
+args = [
+    "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/target/x86_64-pc-windows-msvc/release/bevy_animation_graph_editor.exe",
+    "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/out-win/",
+]
+dependencies = ["build-release-win-msvc"]
+
+[tasks.copy-assets-to-win-out]
+command = "cp"
+args = [
+    "-r",
+    "${CARGO_MAKE_WORKING_DIRECTORY}/assets",
+    "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/out-win/",
+]
+
+[tasks.release-win-msvc]
+run_task = { name = [
+    "clear-win-out",
+    "prepare-win-out",
+    "build-release-win-msvc",
+    "copy-exe-to-win-out-msvc",
+    "copy-assets-to-win-out",
+]}
+
+
+[tasks.prepare-to-run-msvc]
+command = "cp"
+args = ["${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/target/x86_64-pc-windows-msvc/debug/bevy_animation_graph_editor.exe", "${CARGO_MAKE_WORKING_DIRECTORY}/"]
+dependencies = ["build-win-msvc"]
+
+[tasks.run-exe]
+command = "${CARGO_MAKE_WORKING_DIRECTORY}/bevy_animation_graph_editor.exe"
+args = ["--asset-source", "${CARGO_MAKE_WORKSPACE_WORKING_DIRECTORY}/sandbox/assets"]
+
+[tasks.post-run-win]
+command = "rm"
+args = ["${CARGO_MAKE_WORKING_DIRECTORY}/bevy_animation_graph_editor.exe"]
+
+
+[tasks.prepare-to-build]
+command = "echo"
+args = ["----", "nothing to do!"]
