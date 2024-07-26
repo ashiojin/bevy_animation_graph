@@ -54,11 +54,11 @@ impl NodeLike for InvertedMask {
     }
 
     fn data_input_spec(&self, _ctx: SpecContext) -> PinMap<DataSpec> {
-        [(Self::INPUT.into(), DataSpec::F32)].into()
+        [(Self::INPUT.into(), DataSpec::BoneMask)].into()
     }
 
     fn data_output_spec(&self, _ctx: SpecContext) -> PinMap<DataSpec> {
-        [(Self::OUTPUT.into(), DataSpec::F32)].into()
+        [(Self::OUTPUT.into(), DataSpec::BoneMask)].into()
     }
 }
 
